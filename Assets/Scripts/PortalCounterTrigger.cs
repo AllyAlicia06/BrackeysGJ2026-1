@@ -3,17 +3,15 @@ using UnityEngine;
 
 public class PortalCounterTrigger : MonoBehaviour
 {
-    [SerializeField] private AnomalyCounter anomalyCounter;
+    [SerializeField] private AnomalyManager anomalyManager;
     [SerializeField] private string playerTag = "Player";
 
     private void OnTriggerEnter(Collider other)
     {
-        //for now i dont have anything in the game to be able to use the AddOne function
-
         if (!other.CompareTag(playerTag)) return;
-        if (anomalyCounter == null) return;
+        if (anomalyManager == null) return;
         
-        anomalyCounter.ResetToZero();
+        anomalyManager.PortalEntered();
     }
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
