@@ -20,6 +20,8 @@ public class PlayerInteractor : MonoBehaviour
     {
         if (anomalyManager == null || interactPromptUI == null) return;
 
+        bool usedInteractThisFrame = false;
+        
         var current = anomalyManager.Current;
         if (current == null || !current.IsActive)
         {
@@ -37,12 +39,21 @@ public class PlayerInteractor : MonoBehaviour
                 if (input != null && input.interact)
                 {
                     anomalyManager.ResolveCurrentAnomaly();
-                    input.interact = false;
+                    usedInteractThisFrame = true;
                 }
-
-                return;
+                
+            }
+            else
+            {
+                interactPromptUI.Hide();
             }
         }
-        interactPromptUI.Hide();
+        else
+        {
+            interactPromptUI.Hide();
+        }
+        
+        if(input.interact)
+            input.interact = false;
     }
 }

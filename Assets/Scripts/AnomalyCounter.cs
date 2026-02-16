@@ -4,7 +4,10 @@ public class AnomalyCounter : MonoBehaviour
 {
     [SerializeField] private AnomalyCounterUI ui;
     [SerializeField] private int maxAnomalies = 5;
-    [SerializeField] private int currentCount = 2; //for testing for now, because i dont have any anomalies yet
+    [SerializeField] private int currentCount = 0;
+
+    public int CurrentCount => currentCount;
+    public int MaxAnomalies => maxAnomalies;
 
     private void Awake()
     {
