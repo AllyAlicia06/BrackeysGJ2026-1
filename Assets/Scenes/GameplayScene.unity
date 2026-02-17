@@ -6785,7 +6785,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AnomalyCounter
   ui: {fileID: 475943322}
-  maxAnomalies: 1
+  maxAnomalies: 5
   currentCount: 0
 --- !u!114 &895537358
 MonoBehaviour:
