@@ -7,12 +7,12 @@ public class ScreenFader : MonoBehaviour
 {
     public static ScreenFader Instance { get; private set; }
 
-    [SerializeField] private Image overlayImage;
-    [SerializeField] private CanvasGroup canvasGroup;
-
+    private Image overlayImage;
+    private CanvasGroup canvasGroup;
+    
     private void Awake()
     {
-        if (Instance != null)
+        if (Instance != null && Instance != this)
         {
             Destroy(gameObject);
             return;
@@ -20,8 +20,9 @@ public class ScreenFader : MonoBehaviour
 
         Instance = this;
         DontDestroyOnLoad(transform.root.gameObject);
-        //DontDestroyOnLoad(gameObject);
-        
+        overlayImage = GetComponent<Image>();
+        canvasGroup = GetComponent<CanvasGroup>();
+
         canvasGroup.alpha = 0f;
         canvasGroup.blocksRaycasts = true;
     }

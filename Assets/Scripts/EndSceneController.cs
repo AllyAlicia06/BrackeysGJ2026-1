@@ -74,6 +74,9 @@ public class EndSceneController : MonoBehaviour
         if(ScreenFader.Instance != null)
             ScreenFader.Instance.SetInstant(Color.black, 0f);
         
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
+        
         SceneManager.LoadScene(mainSceneName);
     }
 
