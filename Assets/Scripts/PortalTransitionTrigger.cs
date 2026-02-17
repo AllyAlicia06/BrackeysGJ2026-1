@@ -14,6 +14,10 @@ public class PortalTransitionTrigger : MonoBehaviour
     [Header("Ending")]
     [SerializeField] private string endSceneName = "EndingScene";
     [SerializeField] private float fadeToWhiteTime = 1f;
+    
+    [Header("Audio")]
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip audioClip;
 
     private bool busy = false;
 
@@ -22,6 +26,9 @@ public class PortalTransitionTrigger : MonoBehaviour
         if (busy) return;
         if (!other.CompareTag(playerTag)) return;
 
+        if(audioSource != null && audioClip != null)
+            audioSource.PlayOneShot(audioClip);
+        
         if (anomalyCounter != null && anomalyCounter.CurrentCount >= anomalyCounter.MaxAnomalies)
         {
             busy = true;

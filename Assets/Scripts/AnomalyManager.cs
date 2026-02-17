@@ -12,6 +12,9 @@ public class AnomalyManager : MonoBehaviour
     private IAnomaly currentAnomaly;
     private IAnomaly lastAnomaly;
     private bool foundThisRound = false;
+
+    [SerializeField] private AudioSource sfxSource;
+    [SerializeField] private AudioClip collectClip;
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -30,6 +33,10 @@ public class AnomalyManager : MonoBehaviour
         if (currentAnomaly == null) return;
         foundThisRound = true;
         counter?.AddOne();
+        
+        if(sfxSource != null && collectClip != null)
+            sfxSource.PlayOneShot(collectClip);
+        
         currentAnomaly.Resolve();
     }
 

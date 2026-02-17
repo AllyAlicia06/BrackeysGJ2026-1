@@ -19,6 +19,13 @@ public class EndSceneController : MonoBehaviour
     [Header("Scenes")] 
     [SerializeField] private string mainSceneName = "GameplayScene";
 
+    [Header("Audio")]
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip buttonClickClip;
+    [SerializeField] private float buttonDelay = 0.1f;
+
+    private bool _clicked;
+    
     private void Awake()
     {
         Cursor.lockState = CursorLockMode.None;
@@ -69,7 +76,7 @@ public class EndSceneController : MonoBehaviour
         canvasGroup.alpha = target;
     }
     
-    public void Restart()
+    /*public void Restart()
     {
         if(ScreenFader.Instance != null)
             ScreenFader.Instance.SetInstant(Color.black, 0f);
@@ -83,6 +90,50 @@ public class EndSceneController : MonoBehaviour
     public void Quit()
     {
         Application.Quit();
+    }*/
+
+    public void Restart()
+    {
+        if (_clicked) return;
+        _clicked = true;
+        StartCoroutine(RestartRoutine());
+    }
+
+    private IEnumerator RestartRoutine()
+    {
+        PlayButtonClick();
+        
+        yield return new WaitForSeconds(buttonDelay);
+        
+        if(ScreenFader.Instance != null)
+            ScreenFader.Instance.SetInstant(Color.black, 0f);
+
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
+        
+        SceneManager.LoadScene(mainSceneName);
+    }
+
+    public void Quit()
+    {
+        if (_clicked) return;
+        _clicked = true;
+        StartCoroutine(QuitRoutine());
+    }
+
+    private IEnumerator QuitRoutine()
+    {
+        PlayButtonClick();
+        
+        yield return new WaitForSeconds(buttonDelay);
+        
+        Application.Quit();
+    }
+    
+    private void PlayButtonClick()
+    {
+        if(audioSource != null && buttonClickClip != null)
+            audioSource.PlayOneShot(buttonClickClip);
     }
 
     // Update is called once per frame
